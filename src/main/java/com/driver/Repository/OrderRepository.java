@@ -30,14 +30,12 @@ public class OrderRepository implements OrderService {
     @Override
     public void addOrder(Order order) {
         orderDB.put(order.getId(), order);
-        return;
     }
 
     @Override
     public void addPartner(String partnerId) {
         DeliveryPartner partner = new DeliveryPartner(partnerId);
         partnerDB.put(partnerId, partner);
-        return;
     }
 
     @Override
@@ -156,9 +154,7 @@ public class OrderRepository implements OrderService {
         partnerPairDB.remove(partnerId);
 
         for(String id : orders) {
-            if(orderPairDB.containsKey(id)) {
-                orderPairDB.remove(id); // unassigned
-            }
+            orderPairDB.remove(id); // unassigned
         }
     }
 
@@ -176,14 +172,12 @@ public class OrderRepository implements OrderService {
         
         List<String> orders = partnerPairDB.get(partnerId);
         for(int i=0;i<orders.size();i++) {
-            if(orders.get(i)==orderId) {
+            if(orders.get(i).equals(orderId)) {
                 orders.remove(i);  // order removed from list
                 break;
             }
         }
         partnerPairDB.put(partnerId, orders);
-
-        return;
     }
 
 }

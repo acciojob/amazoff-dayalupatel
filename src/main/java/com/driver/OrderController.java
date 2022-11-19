@@ -98,7 +98,7 @@ public class OrderController {
     }
 
     @GetMapping("/get-count-of-orders-left-after-given-time")
-    public ResponseEntity<Integer> getOrdersLeftAfterGivenTimeByPartnerId(@PathVariable String time, @PathVariable String partnerId){
+    public ResponseEntity<Integer> getOrdersLeftAfterGivenTimeByPartnerId(@RequestParam String time, @RequestParam String partnerId){
 
         Integer countOfOrders = orderService.getOrdersLeftAfterGivenTimeByPartnerId(time, partnerId);
 
@@ -108,7 +108,7 @@ public class OrderController {
     }
 
     @GetMapping("/get-last-delivery-time")
-    public ResponseEntity<String> getLastDeliveryTimeByPartnerId(@PathVariable String partnerId){
+    public ResponseEntity<String> getLastDeliveryTimeByPartnerId(@RequestParam String partnerId){
         String time = orderService.getLastDeliveryTimeByPartnerId(partnerId);
 
         //Return the time when that partnerId will deliver his last delivery order.
