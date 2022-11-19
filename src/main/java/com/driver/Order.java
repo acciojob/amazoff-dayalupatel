@@ -7,6 +7,8 @@ public class Order {
     private String id;
     private int deliveryTime;
 
+    public Order() {}
+
     public Order(String id, int deliveryTime) {
         this.id = id;
         this.deliveryTime = deliveryTime;

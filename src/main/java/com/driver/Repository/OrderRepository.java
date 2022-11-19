@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.driver.DeliveryPartner;
@@ -12,6 +13,7 @@ import com.driver.Helper.TimeConverter;
 import com.driver.Service.OrderService;
 
 @Repository
+@Component
 public class OrderRepository implements OrderService {
     HashMap<String, Order> orderDB;                       // storing orders
     HashMap<String, DeliveryPartner> partnerDB;           // storing partners
@@ -22,7 +24,7 @@ public class OrderRepository implements OrderService {
         orderDB = new HashMap<>();
         partnerDB = new HashMap<>();
         orderPairDB = new HashMap<>();
-        partnerDB = new HashMap<>();
+        partnerPairDB = new HashMap<>();
     }
 
     @Override
