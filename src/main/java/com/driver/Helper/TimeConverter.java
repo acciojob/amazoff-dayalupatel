@@ -18,6 +18,14 @@ public class TimeConverter {
     public static String convertTimeIntToString(int time) {
         int MM = time%60;
         int HH = time/60;
-        return HH + ":" + MM;
+        String strHH = "" + HH ;
+        String strMM = "" + MM ;
+        if(HH<10) {
+            strHH = "0" + HH;
+        }
+        if(MM<10) {
+            strMM = "0"+ HH;
+        }
+        return strHH + ":" + strMM;
     }
 }

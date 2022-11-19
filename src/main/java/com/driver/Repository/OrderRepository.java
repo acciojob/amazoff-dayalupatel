@@ -29,8 +29,7 @@ public class OrderRepository implements OrderService {
 
     @Override
     public void addOrder(Order order) {
-        Order newOrder = new Order(order.getId(), order.getDeliveryTime());
-        orderDB.put(order.getId(), newOrder);
+        orderDB.put(order.getId(), order);
         return;
     }
 
@@ -48,7 +47,6 @@ public class OrderRepository implements OrderService {
 
         // adding partner-> List<Orders>  (One to Many)
         if(!partnerPairDB.containsKey(partnerId)) {
-
             partnerPairDB.put(partnerId, new ArrayList<>());
         }
         partnerPairDB.get(partnerId).add(orderId);
@@ -114,6 +112,7 @@ public class OrderRepository implements OrderService {
         }
 
         int givenTime = TimeConverter.convertTimeStringToInt(time);
+        
         List<String> orders = partnerPairDB.get(partnerId);
         int orderLeft = 0;
         for(String id : orders) {
@@ -166,16 +165,25 @@ public class OrderRepository implements OrderService {
     @Override
     public void deleteOrderById(String orderId) {
         //Deleting an order
+        if(!orderDB.containsKey(orderId)) return;
+        
         orderDB.remove(orderId);
 
         // remove it from the assigned order of that partnerId
-        for(List<String> orders : partnerPairDB.values()) {
-            for(String id : orders) {
-                if(id==orderId) {
-                    orders.remove(id);  // order removed from list
-                }
+        if(!orderPairDB.containsKey(orderId)) return;
+        
+        String partnerId = orderPairDB.get(orderId);
+        
+        List<String> orders = partnerPairDB.get(partnerId);
+        for(int i=0;i<orders.size();i++) {
+            if(orders.get(i)==orderId) {
+                orders.remove(i);  // order removed from list
+                break;
             }
         }
+        partnerPairDB.put(partnerId, orders);
+
+        return;
     }
 
 }
